@@ -46,7 +46,7 @@ export default async function Orders({}) {
                     {beer.name}
                   </TableCell>
                   <TableCell className="truncate-ellipsis text-right font-medium">
-                    ${beer.price}
+                    ${beer.price.toFixed(2)}
                   </TableCell>
                   <TableCell className="truncate-ellipsis text-right font-medium">
                     {beer.quantity}

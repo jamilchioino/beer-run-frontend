@@ -66,14 +66,15 @@ const itemSchema = z.object({
     .positive(),
   discount_flat: z.coerce
     .number({
-      invalid_type_error: "Quantity must be a number",
+      invalid_type_error: "Discount flat be a number",
     })
     .nonnegative(),
   discount_rate: z.coerce
     .number({
-      invalid_type_error: "Quantity must be a number",
+      invalid_type_error: "Discount rate must be a number",
     })
-    .nonnegative(),
+    .min(0)
+    .max(1),
 });
 
 const formSchema = z.object({
@@ -88,6 +89,16 @@ export default function Rounds() {
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
+    defaultValues: {
+      items: [
+        {
+          beer_id: "",
+          discount_flat: 0,
+          discount_rate: 0,
+          quantity: 1,
+        },
+      ],
+    },
   });
 
   useEffect(() => {
@@ -152,7 +163,7 @@ export default function Rounds() {
 
   return (
     <div className="m-4 flex flex-col">
-      {state?.state === "loaded" && (
+      {(state?.state === "loaded" || state?.state === "putting") && (
         <Card>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
             <CardHeader>
@@ -167,6 +178,10 @@ export default function Rounds() {
                       <div className="flex items-center justify-between">
                         <CardTitle className="align-baseline">Item</CardTitle>
                         <Button
+                          disabled={
+                            state.state !== "loaded" ||
+                            form.getValues().items.length <= 1
+                          }
                           variant="destructive"
                           onClick={() => remove(index)}
                         >

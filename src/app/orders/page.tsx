@@ -8,11 +8,12 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { truncate } from "@/lib/utils";
 import { Order } from "@/schema/order";
 import { format } from "date-fns";
 import { Check, Ellipsis, LucidePlus } from "lucide-react";
-import { revalidatePath } from "next/cache";
 import Link from "next/link";
+import { redirect } from "next/navigation";
 
 export default async function Orders({}) {
   const response = await fetch(process.env.URL + "/orders/");
@@ -20,8 +21,12 @@ export default async function Orders({}) {
 
   const createOrder = async () => {
     "use server";
-    await fetch(`${process.env.NEXT_PUBLIC_URL}/orders/`, { method: "POST" });
-    revalidatePath("/orders");
+    const result = await fetch(`${process.env.NEXT_PUBLIC_URL}/orders/`, {
+      method: "POST",
+    });
+    const res = (await result.json()) as Order;
+    console.log(res);
+    redirect(`/orders/${res.id}`);
   };
 
   return (
@@ -50,7 +55,7 @@ export default async function Orders({}) {
               <Link key={i} href={`orders/${order.id}`} legacyBehavior={true}>
                 <TableRow key={i}>
                   <TableCell className="truncate-ellipsis font-medium">
-                    {order.id}
+                    {truncate(order.id, 9)}
                   </TableCell>
                   <TableCell className="text-right font-medium">
                     {format(new Date(order.created), "h:mm a")}

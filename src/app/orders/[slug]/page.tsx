@@ -76,22 +76,26 @@ export default async function Orders({
                   <TableRow>
                     <TableCell>Subtotal</TableCell>
                     <TableCell className="text-right">
-                      ${order.sub_total}
+                      ${order.sub_total.toFixed(2)}
                     </TableCell>
                   </TableRow>
                   <TableRow>
                     <TableCell>Discounts</TableCell>
                     <TableCell className="text-right">
-                      ${order.discounts}
+                      -${order.discounts.toFixed(2)}
                     </TableCell>
                   </TableRow>
                   <TableRow>
                     <TableCell>Taxes</TableCell>
-                    <TableCell className="text-right">${order.taxes}</TableCell>
+                    <TableCell className="text-right">
+                      ${order.taxes.toFixed(2)}
+                    </TableCell>
                   </TableRow>
                   <TableRow>
                     <TableCell>Total</TableCell>
-                    <TableCell className="text-right">${order.total}</TableCell>
+                    <TableCell className="text-right">
+                      ${order.total.toFixed(2)}
+                    </TableCell>
                   </TableRow>
                 </TableBody>
               </Table>
@@ -111,10 +115,10 @@ export default async function Orders({
                       </TableHead>
                       <TableHead className="text-right">Quantity</TableHead>
                       <TableHead className="text-right">
-                        Flat Discount
+                        Percent Discount
                       </TableHead>
                       <TableHead className="text-right">
-                        Percent Discount
+                        Flat Discount
                       </TableHead>
                       <TableHead className="text-right">Total</TableHead>
                     </TableRow>
@@ -124,23 +128,24 @@ export default async function Orders({
                       <TableRow>
                         <TableCell>{item.beer?.name ?? "[Deleted]"}</TableCell>
                         <TableCell className="text-right">
-                          ${item.price_per_unit}
+                          ${item.price_per_unit.toFixed(2)}
                         </TableCell>
                         <TableCell className="text-right">
                           {item.quantity}
                         </TableCell>
                         <TableCell className="text-right">
-                          {item.discount_flat}
-                        </TableCell>
-                        <TableCell className="text-right">
                           {item.discount_rate * 100}%
                         </TableCell>
                         <TableCell className="text-right">
+                          ${item.discount_flat.toFixed(2)}
+                        </TableCell>
+                        <TableCell className="text-right">
                           $
-                          {item.price_per_unit *
+                          {(
+                            (item.price_per_unit - item.discount_flat) *
                             item.quantity *
-                            (1 - item.discount_rate) -
-                            item.discount_flat}
+                            (1 - item.discount_rate)
+                          ).toFixed(2)}
                         </TableCell>
                       </TableRow>
                     </TableBody>
