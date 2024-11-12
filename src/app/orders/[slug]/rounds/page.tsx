@@ -68,13 +68,11 @@ const itemSchema = z.object({
     .number({
       invalid_type_error: "Quantity must be a number",
     })
-    .int()
     .nonnegative(),
   discount_rate: z.coerce
     .number({
       invalid_type_error: "Quantity must be a number",
     })
-    .int()
     .nonnegative(),
 });
 

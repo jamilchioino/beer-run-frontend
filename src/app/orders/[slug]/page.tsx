@@ -18,6 +18,7 @@ import {
 } from "@/components/ui/table";
 import { Order } from "@/schema/order";
 import { Plus } from "lucide-react";
+import { revalidatePath } from "next/cache";
 import Link from "next/link";
 import React from "react";
 
@@ -30,6 +31,19 @@ export default async function Orders({
   const response = await fetch(process.env.URL + `/orders/${slug}`);
   const order = (await response.json()) as Order;
 
+  const pay = async () => { 
+    "use server"
+
+    const res = await fetch(`${process.env.NEXT_PUBLIC_URL}/orders/${slug}/pay`, {
+      headers: { "Content-Type": "application/json" },
+      method: "POST",
+      body: JSON.stringify({ order_id: slug }),
+    })
+
+    revalidatePath(`/orders/${slug}`) 
+
+  }
+
   return (
     <div className="flex flex-col m-4">
       <Card>
@@ -37,9 +51,9 @@ export default async function Orders({
           <div className="flex justify-between items-center">
             <CardTitle>Order: {order.id}</CardTitle>
             {!order.paid && (
-              <Link href={`/orders/${slug}/pay`}>
-                <Button variant="outline">Pay</Button>
-              </Link>
+              <form action={pay}>
+                <Button type="submit" variant="outline">Pay</Button>
+              </form>
             )}
           </div>
           <CardDescription>

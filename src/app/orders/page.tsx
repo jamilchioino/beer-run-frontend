@@ -1,3 +1,4 @@
+import { Button } from "@/components/ui/button";
 import {
   Table,
   TableBody,
@@ -9,17 +10,30 @@ import {
 } from "@/components/ui/table";
 import { Order } from "@/schema/order";
 import { format } from "date-fns";
-import { Check, RectangleEllipsis } from "lucide-react";
+import { Check, LucidePlus, RectangleEllipsis } from "lucide-react";
+import { revalidatePath } from "next/cache";
 import Link from "next/link";
 
 export default async function Orders({}) {
   const response = await fetch(process.env.URL + "/orders/");
   const { orders } = (await response.json()) as { orders: Order[] };
 
+  const createOrder = async () => {
+    "use server"
+    await fetch(`${process.env.NEXT_PUBLIC_URL}/orders/`, {method: "POST"})
+    revalidatePath("/orders")
+  }
+
   return (
     <div className="flex flex-col m-4">
-      <div>
+      <div className="flex justify-between">
         <h1>Orders</h1>
+        <form action={createOrder}>
+        <Button>
+          <LucidePlus/>
+          New Order
+        </Button>
+        </form>
       </div>
       <div>
         <Table>
