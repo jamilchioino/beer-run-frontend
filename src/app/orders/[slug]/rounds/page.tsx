@@ -124,7 +124,7 @@ export default function Rounds() {
         headers: { "Content-Type": "application/json" },
         method: "POST",
         body: JSON.stringify(values),
-      }
+      },
     );
 
     if (response.status !== 200) {
@@ -133,7 +133,7 @@ export default function Rounds() {
       toast({
         title: "Oh no!",
         description: data.detail,
-        variant: "destructive"
+        variant: "destructive",
       });
 
       setData({ state: "loaded", data: state.data });
@@ -151,7 +151,7 @@ export default function Rounds() {
   };
 
   return (
-    <div className="flex flex-col m-4">
+    <div className="m-4 flex flex-col">
       {state?.state === "loaded" && (
         <Card>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
@@ -164,7 +164,7 @@ export default function Rounds() {
                 {fields.map((field, index) => (
                   <Card key={index}>
                     <CardHeader>
-                      <div className="flex justify-between items-center">
+                      <div className="flex items-center justify-between">
                         <CardTitle className="align-baseline">Item</CardTitle>
                         <Button
                           variant="destructive"
@@ -252,19 +252,25 @@ export default function Rounds() {
                   </Card>
                 ))}
               </Form>
-              <Button type="button" onClick={() => onAppend()} variant={"outline"}>
+              <Button
+                type="button"
+                onClick={() => onAppend()}
+                variant={"outline"}
+              >
                 Add new
               </Button>
             </CardContent>
-            {form.getValues().items.length > 0 && <CardFooter>
-              <Button
-                type="submit"
-                className="w-full"
-                disabled={state.state !== "loaded"}
-              >
-                <Plus /> Save
-              </Button> 
-            </CardFooter>}
+            {form.getValues().items.length > 0 && (
+              <CardFooter>
+                <Button
+                  type="submit"
+                  className="w-full"
+                  disabled={state.state !== "loaded"}
+                >
+                  <Plus /> Save
+                </Button>
+              </CardFooter>
+            )}
           </form>
         </Card>
       )}

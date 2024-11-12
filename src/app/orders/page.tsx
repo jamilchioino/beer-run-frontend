@@ -19,20 +19,20 @@ export default async function Orders({}) {
   const { orders } = (await response.json()) as { orders: Order[] };
 
   const createOrder = async () => {
-    "use server"
-    await fetch(`${process.env.NEXT_PUBLIC_URL}/orders/`, {method: "POST"})
-    revalidatePath("/orders")
-  }
+    "use server";
+    await fetch(`${process.env.NEXT_PUBLIC_URL}/orders/`, { method: "POST" });
+    revalidatePath("/orders");
+  };
 
   return (
-    <div className="flex flex-col m-4">
-      <div className="flex justify-between items-center mb-2">
+    <div className="m-4 flex flex-col">
+      <div className="mb-2 flex items-center justify-between">
         <h1>Orders</h1>
         <form action={createOrder}>
-        <Button>
-          <LucidePlus/>
-          New Order
-        </Button>
+          <Button>
+            <LucidePlus />
+            New Order
+          </Button>
         </form>
       </div>
       <div>
@@ -49,13 +49,13 @@ export default async function Orders({}) {
             {orders.map((order, i) => (
               <Link key={i} href={`orders/${order.id}`} legacyBehavior={true}>
                 <TableRow key={i}>
-                  <TableCell className="font-medium truncate-ellipsis">
+                  <TableCell className="truncate-ellipsis font-medium">
                     {order.id}
                   </TableCell>
-                  <TableCell className="font-medium text-right">
+                  <TableCell className="text-right font-medium">
                     {format(new Date(order.created), "h:mm a")}
                   </TableCell>
-                  <TableCell className="font-medium text-right">
+                  <TableCell className="text-right font-medium">
                     <div className="flex justify-end">
                       {order.paid ? <Check /> : <Ellipsis />}
                     </div>

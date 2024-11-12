@@ -2,21 +2,21 @@
 
 import { Button } from "@/components/ui/button";
 import {
-    Card,
-    CardContent,
-    CardDescription,
-    CardFooter,
-    CardHeader,
-    CardTitle,
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
 } from "@/components/ui/card";
 import {
-    Form,
-    FormControl,
-    FormDescription,
-    FormField,
-    FormItem,
-    FormLabel,
-    FormMessage,
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
@@ -35,10 +35,10 @@ type Loaded = {
 type Putting = {
   state: "putting";
   data: {
-    stock: Omit<Beer,"id">;
+    stock: Omit<Beer, "id">;
   };
 };
-type State =  Loaded | Putting;
+type State = Loaded | Putting;
 
 const stockSchema = z.object({
   name: z.string().min(1),
@@ -57,7 +57,6 @@ const stockSchema = z.object({
     .nonnegative(),
 });
 
-
 export default function Rounds() {
   const [state, setData] = useState<State>({ state: "loaded" });
   const { toast } = useToast();
@@ -66,10 +65,10 @@ export default function Rounds() {
   const form = useForm<z.infer<typeof stockSchema>>({
     resolver: zodResolver(stockSchema),
     defaultValues: {
-        name: "",
-        price: 0,
-        quantity: 1
-    }
+      name: "",
+      price: 0,
+      quantity: 1,
+    },
   });
 
   const onSubmit = async (values: z.infer<typeof stockSchema>) => {
@@ -77,19 +76,16 @@ export default function Rounds() {
       return;
     }
 
-    setData({ state: "putting", data: {stock: values }});
-    await fetch(
-      `${process.env.NEXT_PUBLIC_URL}/stock`,
-      {
-        headers: { "Content-Type": "application/json" },
-        method: "POST",
-        body: JSON.stringify(values),
-      }
-    );
+    setData({ state: "putting", data: { stock: values } });
+    await fetch(`${process.env.NEXT_PUBLIC_URL}/stock`, {
+      headers: { "Content-Type": "application/json" },
+      method: "POST",
+      body: JSON.stringify(values),
+    });
 
     // Simulate lag
     setTimeout(() => {
-      setData({ state: "loaded"});
+      setData({ state: "loaded" });
       toast({
         title: "Added new Beer to Stock",
       });
@@ -98,8 +94,8 @@ export default function Rounds() {
   };
 
   return (
-    <div className="flex flex-col m-4">
-      {(state?.state === "loaded" || state.state=== "putting") && (
+    <div className="m-4 flex flex-col">
+      {(state?.state === "loaded" || state.state === "putting") && (
         <Card>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
             <CardHeader>
@@ -167,4 +163,3 @@ export default function Rounds() {
     </div>
   );
 }
-

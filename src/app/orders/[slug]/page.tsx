@@ -31,27 +31,29 @@ export default async function Orders({
   const response = await fetch(process.env.URL + `/orders/${slug}`);
   const order = (await response.json()) as Order;
 
-  const pay = async () => { 
-    "use server"
+  const pay = async () => {
+    "use server";
 
     await fetch(`${process.env.NEXT_PUBLIC_URL}/orders/${slug}/pay`, {
       headers: { "Content-Type": "application/json" },
       method: "POST",
       body: JSON.stringify({ order_id: slug }),
-    })
+    });
 
-    revalidatePath(`/orders/${slug}`) 
-  }
+    revalidatePath(`/orders/${slug}`);
+  };
 
   return (
-    <div className="flex flex-col m-4">
+    <div className="m-4 flex flex-col">
       <Card>
         <CardHeader>
-          <div className="flex justify-between items-center">
+          <div className="flex items-center justify-between">
             <CardTitle>Order: {order.id}</CardTitle>
             {!order.paid && (
               <form action={pay}>
-                <Button type="submit" variant="outline">Pay</Button>
+                <Button type="submit" variant="outline">
+                  Pay
+                </Button>
               </form>
             )}
           </div>
@@ -108,8 +110,12 @@ export default async function Orders({
                         Price per unit
                       </TableHead>
                       <TableHead className="text-right">Quantity</TableHead>
-                      <TableHead className="text-right">Flat Discount</TableHead>
-                      <TableHead className="text-right">Percent Discount</TableHead>
+                      <TableHead className="text-right">
+                        Flat Discount
+                      </TableHead>
+                      <TableHead className="text-right">
+                        Percent Discount
+                      </TableHead>
                       <TableHead className="text-right">Total</TableHead>
                     </TableRow>
                   </TableHeader>
@@ -130,7 +136,11 @@ export default async function Orders({
                           {item.discount_rate * 100}%
                         </TableCell>
                         <TableCell className="text-right">
-                          ${item.price_per_unit * item.quantity * (1-item.discount_rate) - item.discount_flat}
+                          $
+                          {item.price_per_unit *
+                            item.quantity *
+                            (1 - item.discount_rate) -
+                            item.discount_flat}
                         </TableCell>
                       </TableRow>
                     </TableBody>

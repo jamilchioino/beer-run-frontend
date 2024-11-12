@@ -40,11 +40,11 @@ type Loaded = {
 };
 
 type Deleting = {
-  state: "deleting"
+  state: "deleting";
   data: {
-    beer: Beer
-  }
-}
+    beer: Beer;
+  };
+};
 
 type Putting = {
   state: "putting";
@@ -79,7 +79,7 @@ export default function Orders() {
   const { slug } = useParams<{ slug: string }>();
   const { toast } = useToast();
 
-  const router = useRouter()
+  const router = useRouter();
 
   useEffect(() => {
     fetch(`${process.env.NEXT_PUBLIC_URL}/stock/${slug}`)
@@ -98,24 +98,24 @@ export default function Orders() {
 
   const onDelete = async () => {
     if (state?.state !== "loaded") {
-      return
+      return;
     }
 
     await fetch(`${process.env.NEXT_PUBLIC_URL}/stock/${slug}`, {
       method: "DELETE",
-    })
+    });
 
-    setData({state: "deleting", data: state.data})
+    setData({ state: "deleting", data: state.data });
 
     // Simulate lag
     setTimeout(() => {
-      router.push("/stock")
+      router.push("/stock");
       toast({
         title: "Deleted beer",
-        variant: "destructive"
-      })
-    }, 1000)
-  }
+        variant: "destructive",
+      });
+    }, 1000);
+  };
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     setData({ state: "putting", data: { beer: values } });
@@ -135,16 +135,23 @@ export default function Orders() {
   };
 
   return (
-    <div className="flex flex-col m-4">
-      {(state?.state === "loaded" || state?.state === "putting" || state?.state === "deleting") && (
+    <div className="m-4 flex flex-col">
+      {(state?.state === "loaded" ||
+        state?.state === "putting" ||
+        state?.state === "deleting") && (
         <Card>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
             <CardHeader>
-              <div className="flex justify-between items-center">
-              <CardTitle>Beer: {state.data.beer.id}</CardTitle>
-              <Button variant={"destructive"} type="button" onClick={() => onDelete()} disabled={state.state !== "loaded"}>
-                Delete
-              </Button>
+              <div className="flex items-center justify-between">
+                <CardTitle>Beer: {state.data.beer.id}</CardTitle>
+                <Button
+                  variant={"destructive"}
+                  type="button"
+                  onClick={() => onDelete()}
+                  disabled={state.state !== "loaded"}
+                >
+                  Delete
+                </Button>
               </div>
               <CardDescription>Editing</CardDescription>
             </CardHeader>

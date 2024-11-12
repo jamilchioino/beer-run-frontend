@@ -17,13 +17,11 @@ export default async function Orders({}) {
   const stock = (await response.json()) as Stock;
 
   return (
-    <div className="flex flex-col m-4">
-      <div className="mb-2 flex justify-between items-center">
+    <div className="m-4 flex flex-col">
+      <div className="mb-2 flex items-center justify-between">
         <h1>Stock</h1>
         <Link href={"/stock/new"} legacyBehavior={true}>
-        <Button>
-          + New beer
-        </Button>
+          <Button>+ New beer</Button>
         </Link>
       </div>
       <div>
@@ -44,13 +42,13 @@ export default async function Orders({}) {
                   <TableCell className="font-mediumtext-ellipsis">
                     {truncate(beer.id, 9)}
                   </TableCell>
-                  <TableCell className="font-medium text-right truncate-ellipsis">
+                  <TableCell className="truncate-ellipsis text-right font-medium">
                     {beer.name}
                   </TableCell>
-                  <TableCell className="font-medium text-right truncate-ellipsis">
+                  <TableCell className="truncate-ellipsis text-right font-medium">
                     ${beer.price}
                   </TableCell>
-                  <TableCell className="font-medium text-right truncate-ellipsis">
+                  <TableCell className="truncate-ellipsis text-right font-medium">
                     {beer.quantity}
                   </TableCell>
                 </TableRow>
