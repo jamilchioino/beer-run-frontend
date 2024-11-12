@@ -109,6 +109,9 @@ export default async function Orders({
                         Price per unit
                       </TableHead>
                       <TableHead className="text-right">Quantity</TableHead>
+                      <TableHead className="text-right">Flat Discount</TableHead>
+                      <TableHead className="text-right">Percent Discount</TableHead>
+                      <TableHead className="text-right">Total</TableHead>
                     </TableRow>
                   </TableHeader>
                   {round.items.map((item, index) => (
@@ -120,6 +123,15 @@ export default async function Orders({
                         </TableCell>
                         <TableCell className="text-right">
                           {item.quantity}
+                        </TableCell>
+                        <TableCell className="text-right">
+                          {item.discount_flat}
+                        </TableCell>
+                        <TableCell className="text-right">
+                          {item.discount_rate * 100}%
+                        </TableCell>
+                        <TableCell className="text-right">
+                          ${item.price_per_unit * item.quantity * (1-item.discount_rate) - item.discount_flat}
                         </TableCell>
                       </TableRow>
                     </TableBody>

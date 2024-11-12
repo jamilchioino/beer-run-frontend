@@ -121,7 +121,7 @@ export default function Orders() {
                     <FormItem>
                       <FormLabel>Name</FormLabel>
                       <FormControl>
-                        <Input placeholder="corona" {...field} />
+                        <Input placeholder="Corona" {...field} />
                       </FormControl>
                       <FormDescription>Name of the beer</FormDescription>
                       <FormMessage />
@@ -135,7 +135,7 @@ export default function Orders() {
                     <FormItem>
                       <FormLabel>Price</FormLabel>
                       <FormControl>
-                        <Input placeholder="corona" {...field} type="number" />
+                        <Input placeholder="100" {...field} type="number" />
                       </FormControl>
                       <FormDescription>Unit price of beer</FormDescription>
                       <FormMessage />
@@ -149,7 +149,7 @@ export default function Orders() {
                     <FormItem>
                       <FormLabel>Quantity</FormLabel>
                       <FormControl>
-                        <Input placeholder="corona" {...field} type="number" />
+                        <Input placeholder="2" {...field} type="number" />
                       </FormControl>
                       <FormDescription>Amount left in stock</FormDescription>
                       <FormMessage />

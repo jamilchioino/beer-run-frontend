@@ -131,8 +131,9 @@ export default function Rounds() {
       const data = await response.json();
 
       toast({
-        title: "Error",
+        title: "Oh no!",
         description: data.detail,
+        variant: "destructive"
       });
 
       setData({ state: "loaded", data: state.data });
@@ -155,8 +156,8 @@ export default function Rounds() {
         <Card>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
             <CardHeader>
-              <CardTitle>Order: {slug}</CardTitle>
-              <CardDescription>Adding Round</CardDescription>
+              <CardTitle>Rounds for order: {slug}</CardTitle>
+              <CardDescription>Adding new round</CardDescription>
             </CardHeader>
             <CardContent className="grid gap-4">
               <Form {...form}>
@@ -251,19 +252,19 @@ export default function Rounds() {
                   </Card>
                 ))}
               </Form>
-              <Button type="button" onClick={() => onAppend()}>
+              <Button type="button" onClick={() => onAppend()} variant={"outline"}>
                 Add new
               </Button>
             </CardContent>
-            <CardFooter>
+            {form.getValues().items.length > 0 && <CardFooter>
               <Button
                 type="submit"
                 className="w-full"
                 disabled={state.state !== "loaded"}
               >
                 <Plus /> Save
-              </Button>
-            </CardFooter>
+              </Button> 
+            </CardFooter>}
           </form>
         </Card>
       )}

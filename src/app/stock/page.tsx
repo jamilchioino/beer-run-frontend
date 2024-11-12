@@ -17,7 +17,7 @@ export default async function Orders({}) {
 
   return (
     <div className="flex flex-col m-4">
-      <div>
+      <div className="mb-2">
         <h1>Stock</h1>
       </div>
       <div>
@@ -42,7 +42,7 @@ export default async function Orders({}) {
                     {beer.name}
                   </TableCell>
                   <TableCell className="font-medium text-right truncate-ellipsis">
-                    {beer.price}
+                    ${beer.price}
                   </TableCell>
                   <TableCell className="font-medium text-right truncate-ellipsis">
                     {beer.quantity}

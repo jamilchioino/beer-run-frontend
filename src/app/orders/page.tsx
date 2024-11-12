@@ -26,7 +26,7 @@ export default async function Orders({}) {
 
   return (
     <div className="flex flex-col m-4">
-      <div className="flex justify-between">
+      <div className="flex justify-between items-center mb-2">
         <h1>Orders</h1>
         <form action={createOrder}>
         <Button>
