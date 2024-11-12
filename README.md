@@ -1,6 +1,6 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-## Getting Started
+## Starting the project
 
 ### Requirements
 * Download and run the backend for this project first, found [here](https://github.com/jamilchioino/beer-run-backend)
