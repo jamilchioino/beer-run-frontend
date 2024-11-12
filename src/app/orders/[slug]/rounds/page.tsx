@@ -115,7 +115,7 @@ export default function Rounds() {
       beer_id: "",
       discount_flat: 0,
       discount_rate: 0,
-      quantity: 0,
+      quantity: 1,
     });
   };
 
