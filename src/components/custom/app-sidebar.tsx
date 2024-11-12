@@ -13,11 +13,6 @@ import { Calendar, Home, Inbox } from "lucide-react";
 // Menu items.
 const items = [
   {
-    title: "Dashboard",
-    url: "/",
-    icon: Home,
-  },
-  {
     title: "Orders",
     url: "/orders",
     icon: Inbox,

@@ -64,7 +64,7 @@ const formSchema = z.object({
       invalid_type_error: "Quantity must be a number",
     })
     .int()
-    .positive(),
+    .nonnegative(),
 });
 
 export default function Orders() {
