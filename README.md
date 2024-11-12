@@ -16,5 +16,5 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 Env files pointing to the backend have been included for convenience
 
 ## Rationale
-The UI library shadcn was picked to make a placeholder UI.
-Prettier was picked for opinionated formatting, especially for consistent ordering of tailwind classes.
+* The UI library shadcn was picked to make a placeholder UI.
+* Prettier was picked for opinionated formatting, especially for consistent ordering of tailwind classes.
