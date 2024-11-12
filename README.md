@@ -2,7 +2,7 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 
 ## Getting Started
 
-Make sure to download and run the backend for this project, found [here](https://github.com/jamilchioino/beer-run-backend)
+Make sure to download and run the backend for this project first, found [here](https://github.com/jamilchioino/beer-run-backend)
 
 Then, run the development server with:
 
