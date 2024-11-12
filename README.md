@@ -6,6 +6,7 @@ Make sure to download and run the backend for this project, found [here](https:/
 Then, run the development server with:
 
 ```bash
+npm install --force
 npm run dev
 ```
 
