@@ -34,14 +34,13 @@ export default async function Orders({
   const pay = async () => { 
     "use server"
 
-    const res = await fetch(`${process.env.NEXT_PUBLIC_URL}/orders/${slug}/pay`, {
+    await fetch(`${process.env.NEXT_PUBLIC_URL}/orders/${slug}/pay`, {
       headers: { "Content-Type": "application/json" },
       method: "POST",
       body: JSON.stringify({ order_id: slug }),
     })
 
     revalidatePath(`/orders/${slug}`) 
-
   }
 
   return (
@@ -117,7 +116,7 @@ export default async function Orders({
                   {round.items.map((item, index) => (
                     <TableBody key={index}>
                       <TableRow>
-                        <TableCell>{item.beer?.name}</TableCell>
+                        <TableCell>{item.beer?.name ?? "[Deleted]"}</TableCell>
                         <TableCell className="text-right">
                           ${item.price_per_unit}
                         </TableCell>

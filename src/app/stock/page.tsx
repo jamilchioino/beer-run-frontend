@@ -1,3 +1,4 @@
+import { Button } from "@/components/ui/button";
 import {
   Table,
   TableBody,
@@ -17,8 +18,13 @@ export default async function Orders({}) {
 
   return (
     <div className="flex flex-col m-4">
-      <div className="mb-2">
+      <div className="mb-2 flex justify-between items-center">
         <h1>Stock</h1>
+        <Link href={"/stock/new"} legacyBehavior={true}>
+        <Button>
+          + New beer
+        </Button>
+        </Link>
       </div>
       <div>
         <Table>

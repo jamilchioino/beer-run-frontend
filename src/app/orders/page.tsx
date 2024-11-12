@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/table";
 import { Order } from "@/schema/order";
 import { format } from "date-fns";
-import { Check, LucidePlus, RectangleEllipsis } from "lucide-react";
+import { Check, Ellipsis, LucidePlus } from "lucide-react";
 import { revalidatePath } from "next/cache";
 import Link from "next/link";
 
@@ -57,7 +57,7 @@ export default async function Orders({}) {
                   </TableCell>
                   <TableCell className="font-medium text-right">
                     <div className="flex justify-end">
-                      {order.paid ? <Check /> : <RectangleEllipsis />}
+                      {order.paid ? <Check /> : <Ellipsis />}
                     </div>
                   </TableCell>
                 </TableRow>
