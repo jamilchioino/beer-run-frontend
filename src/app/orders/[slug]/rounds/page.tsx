@@ -153,7 +153,6 @@ export default function Rounds() {
 
     // Simulate lag
     setTimeout(() => {
-      setData({ state: "loading" });
       toast({
         title: "Added Round to Order",
       });
